@@ -7,7 +7,7 @@ const TABS = [
   { href: "/home", label: "Home" },
   { href: "/home/ferramentas", label: "Ferramentas" },
   { href: "/home/series", label: "Séries" },
-  { href: "/home/live", label: "Live" },
+  { href: "/home/discobaktv", label: "DiscobakTV" },
   { href: "/home/sobre", label: "Sobre" },
 ];
 
@@ -17,7 +17,9 @@ export default function Tabs() {
   return (
     <nav className="tabs" aria-label="Principal">
       {TABS.map((t) => {
-        const active = pathname === t.href;
+        const active =
+          pathname === t.href ||
+          (t.href !== "/home" && pathname.startsWith(t.href + "/"));
         return (
           <Link
             key={t.href}

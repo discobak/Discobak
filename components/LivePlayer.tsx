@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type Hls from "hls.js";
 
 const STREAM_URL =
   "https://vs20.live.opencaster.com/discobaktele_eafe2c2b/index.m3u8";
@@ -15,7 +16,7 @@ export default function LivePlayer() {
     if (!video) return;
     setOffline(false);
 
-    let hls: import("hls.js").default | null = null;
+    const player: { hls: Hls | null } = { hls: null };
     let cancelled = false;
 
     // Safari / iOS tocam HLS nativamente
@@ -33,20 +34,21 @@ export default function LivePlayer() {
         setOffline(true);
         return;
       }
-      hls = new Hls({ lowLatencyMode: true });
-      hls.loadSource(STREAM_URL);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      const instance = new Hls({ lowLatencyMode: true });
+      player.hls = instance;
+      instance.loadSource(STREAM_URL);
+      instance.attachMedia(video);
+      instance.on(Hls.Events.MANIFEST_PARSED, () => {
         video.play().catch(() => {});
       });
-      hls.on(Hls.Events.ERROR, (_e, data) => {
+      instance.on(Hls.Events.ERROR, (_e, data) => {
         if (data.fatal) setOffline(true);
       });
     });
 
     return () => {
       cancelled = true;
-      hls?.destroy();
+      player.hls?.destroy();
     };
   }, [attempt]);
 
