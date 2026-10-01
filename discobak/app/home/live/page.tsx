@@ -1,11 +1,11 @@
 import LivePlayer from "@/components/LivePlayer";
-import LiveChat from "@/components/LiveChat";
+import Agenda from "@/components/Agenda";
 
 export default function Live() {
   return (
     <div className="live">
       <LivePlayer />
-      <LiveChat />
+      <Agenda />
     </div>
   );
 }
