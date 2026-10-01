@@ -3,17 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const SUBTABS = [
-  { href: "/home/discobaktv", label: "Transmissão" },
-  { href: "/home/discobaktv/agenda", label: "Agenda de eventos" },
-];
+type Item = { href: string; label: string };
 
-export default function SubTabs() {
+export default function SubTabs({ items, label }: { items: Item[]; label: string }) {
   const pathname = usePathname();
 
   return (
-    <nav className="subtabs" aria-label="DiscobakTV">
-      {SUBTABS.map((t) => {
+    <nav className="subtabs" aria-label={label}>
+      {items.map((t) => {
         const active = pathname === t.href;
         return (
           <Link

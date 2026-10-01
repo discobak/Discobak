@@ -1,3 +1,10 @@
 export default function Sobre() {
-  return <h1 className="page-title">Sobre</h1>;
+  return (
+    <div className="about">
+      <h1 className="about-title">Discobak</h1>
+      <p className="about-text">
+        A Discobak é uma marca registrada feita com carinho por uma pessoa.
+      </p>
+    </div>
+  );
 }
