@@ -192,6 +192,7 @@ body {
   position: relative;
   aspect-ratio: 16 / 9;
   background: #000;
+  border: 3px solid var(--orange);
   border-radius: 1rem;
   overflow: hidden;
 }
@@ -210,14 +211,6 @@ body {
   padding: 1.5rem;
 }
 .player-offline .btn-abrir { background: var(--orange); color: var(--ink); }
-
-.tv-btn {
-  display: inline-block;
-  text-decoration: none;
-  background: var(--orange);
-  color: var(--ink);
-}
-.tv-btn:hover { background: var(--paper); color: var(--ink); }
 
 .sheet {
   border-collapse: collapse;
