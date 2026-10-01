@@ -145,6 +145,16 @@ body {
   color: var(--ink);
   font-weight: 600;
 }
+.page-enter { animation: page-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes sub-in {
+  from { opacity: 0; transform: translateX(28px); }
+  to { opacity: 1; transform: none; }
+}
+
 .home-main {
   min-height: 80dvh;
   padding: 0 clamp(1.25rem, 3vw, 2.5rem);
@@ -169,24 +179,41 @@ body {
   align-items: center;
   gap: 1.5rem;
 }
-.tv > .player, .tv > .sheet { width: 100%; }
+.sub-enter {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: sub-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.sub-enter > .player, .sub-enter > .sheet { width: 100%; }
 
 .subtabs { display: flex; gap: 1.75rem; }
 .subtab {
+  position: relative;
   color: var(--paper);
   opacity: 0.6;
   font-size: 1rem;
   font-weight: 500;
   text-decoration: none;
   padding: 0.4em 0;
-  border-bottom: 2px solid transparent;
-  transition: opacity 0.2s, border-color 0.2s;
+  transition: opacity 0.25s;
+}
+.subtab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .subtab:hover { opacity: 1; }
-.subtab-active, .subtab-active:hover {
-  opacity: 1;
-  border-bottom-color: var(--orange);
-}
+.subtab-active, .subtab-active:hover { opacity: 1; }
+.subtab-active::after { transform: scaleX(1); }
 
 .player {
   position: relative;
@@ -237,4 +264,6 @@ body {
   .wordmark span { animation: none; transform: none; }
   .caret { animation: none; }
   .curtain { transition: none; }
+  .page-enter, .sub-enter { animation: none; }
+  .subtab::after, .tab { transition: none; }
 }
